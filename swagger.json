@@ -1,0 +1,3319 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "text/plain"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "The Skydive REST API allows to communicate with a Skydive analyzer.",
+    "title": "Skydive API",
+    "contact": {
+      "name": "Skydive mailing list",
+      "email": "skydive-dev@redhat.com"
+    },
+    "license": {
+      "name": "Apache",
+      "url": "http://opensource.org/licenses/Apache-2.0"
+    },
+    "version": "0.27.0"
+  },
+  "host": "localhost:8082",
+  "basePath": "/api",
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Get API version",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "API Info"
+        ],
+        "summary": "Get API info",
+        "operationId": "getApi",
+        "responses": {
+          "200": {
+            "description": "API info",
+            "schema": {
+              "$ref": "#/definitions/Info"
+            }
+          }
+        }
+      }
+    },
+    "/alert": {
+      "get": {
+        "description": "List alerts",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "List alerts",
+        "operationId": "listAlerts",
+        "responses": {
+          "200": {
+            "description": "Alerts",
+            "schema": {
+              "$ref": "#/definitions/Alerts"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create an alert",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Create alert",
+        "operationId": "createAlert",
+        "parameters": [
+          {
+            "name": "alert",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Alert"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alert created",
+            "schema": {
+              "$ref": "#/definitions/Alert"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated alert"
+          }
+        }
+      }
+    },
+    "/alert/{id}": {
+      "get": {
+        "description": "Get an alert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Get alert",
+        "operationId": "getAlert",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alert found",
+            "schema": {
+              "$ref": "#/definitions/Alert"
+            }
+          },
+          "404": {
+            "description": "Alert not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete an alert",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Delete alert",
+        "operationId": "deleteAlert",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alert deleted"
+          },
+          "404": {
+            "description": "Alert not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify an alert",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Modify alert",
+        "operationId": "modifyAlert",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alert modified"
+          },
+          "404": {
+            "description": "Alert not found"
+          }
+        }
+      }
+    },
+    "/capture": {
+      "get": {
+        "description": "List captures",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Captures"
+        ],
+        "summary": "List captures",
+        "operationId": "listCaptures",
+        "responses": {
+          "200": {
+            "description": "Captures",
+            "schema": {
+              "$ref": "#/definitions/Captures"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a capture",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Captures"
+        ],
+        "summary": "Create capture",
+        "operationId": "createCapture",
+        "parameters": [
+          {
+            "name": "capture",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Capture"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Capture created",
+            "schema": {
+              "$ref": "#/definitions/Capture"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated capture"
+          }
+        }
+      }
+    },
+    "/capture/{id}": {
+      "get": {
+        "description": "Get a capture",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Captures"
+        ],
+        "summary": "Get capture",
+        "operationId": "getCapture",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Capture found",
+            "schema": {
+              "$ref": "#/definitions/Capture"
+            }
+          },
+          "404": {
+            "description": "Capture not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a capture",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Captures"
+        ],
+        "summary": "Delete capture",
+        "operationId": "deleteCapture",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Capture deleted"
+          },
+          "404": {
+            "description": "Capture not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify a capture",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Captures"
+        ],
+        "summary": "Modify capture",
+        "operationId": "modifyCapture",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Capture modified"
+          },
+          "404": {
+            "description": "Capture not found"
+          }
+        }
+      }
+    },
+    "/config/{key}": {
+      "get": {
+        "description": "Get configuration value",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Config"
+        ],
+        "summary": "Get configuration",
+        "operationId": "getConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "key",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "configuration value",
+            "schema": {
+              "$ref": "#/definitions/AnyValue"
+            }
+          }
+        }
+      }
+    },
+    "/edge": {
+      "get": {
+        "description": "List edges",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edges"
+        ],
+        "summary": "List edges",
+        "operationId": "listEdges",
+        "responses": {
+          "200": {
+            "description": "Edges",
+            "schema": {
+              "$ref": "#/definitions/Edges"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a edge",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edges"
+        ],
+        "summary": "Create edge",
+        "operationId": "createEdge",
+        "parameters": [
+          {
+            "name": "edge",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Edge"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge created",
+            "schema": {
+              "$ref": "#/definitions/Edge"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated edge"
+          }
+        }
+      }
+    },
+    "/edge/{id}": {
+      "get": {
+        "description": "Get a edge",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edges"
+        ],
+        "summary": "Get edge",
+        "operationId": "getEdge",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge found",
+            "schema": {
+              "$ref": "#/definitions/Edge"
+            }
+          },
+          "404": {
+            "description": "Edge not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a edge",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edges"
+        ],
+        "summary": "Delete edge",
+        "operationId": "deleteEdge",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge deleted"
+          },
+          "404": {
+            "description": "Edge not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify a edge",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edges"
+        ],
+        "summary": "Modify edge",
+        "operationId": "modifyEdge",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge modified"
+          },
+          "404": {
+            "description": "Edge not found"
+          }
+        }
+      }
+    },
+    "/edgerule": {
+      "get": {
+        "description": "List edge rules",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edge rules"
+        ],
+        "summary": "List edge rules",
+        "operationId": "listEdgeRules",
+        "responses": {
+          "200": {
+            "description": "Edge rules",
+            "schema": {
+              "$ref": "#/definitions/EdgeRules"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create an edge rule",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edge rules"
+        ],
+        "summary": "Create edge rule",
+        "operationId": "createEdgeRule",
+        "parameters": [
+          {
+            "name": "edge rule",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeRule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge rule created",
+            "schema": {
+              "$ref": "#/definitions/EdgeRule"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated edge rule"
+          }
+        }
+      }
+    },
+    "/edgerule/{id}": {
+      "get": {
+        "description": "Get an edge rule",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edge rules"
+        ],
+        "summary": "Get edge rule",
+        "operationId": "getEdgeRule",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge rule found",
+            "schema": {
+              "$ref": "#/definitions/EdgeRule"
+            }
+          },
+          "404": {
+            "description": "Edge rule not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete an edge rule",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edge rules"
+        ],
+        "summary": "Delete edge rule",
+        "operationId": "deleteEdgeRule",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge rule deleted"
+          },
+          "404": {
+            "description": "Edge rule not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify an edge rule",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Edge rules"
+        ],
+        "summary": "Modify edge rule",
+        "operationId": "modifyEdgeRule",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edge rule modified"
+          },
+          "404": {
+            "description": "Edge rule not found"
+          }
+        }
+      }
+    },
+    "/injectpacket": {
+      "get": {
+        "description": "List injections",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Injections"
+        ],
+        "summary": "List injections",
+        "operationId": "listPacketInjections",
+        "responses": {
+          "200": {
+            "description": "Injections",
+            "schema": {
+              "$ref": "#/definitions/PacketInjections"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create an injection",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Injections"
+        ],
+        "summary": "Create injection",
+        "operationId": "createPacketInjection",
+        "parameters": [
+          {
+            "name": "injection",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PacketInjection"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Injection created",
+            "schema": {
+              "$ref": "#/definitions/PacketInjection"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated injection"
+          }
+        }
+      }
+    },
+    "/injectpacket/{id}": {
+      "get": {
+        "description": "Get an injection",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Injections"
+        ],
+        "summary": "Get injection",
+        "operationId": "getPacketInjection",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Injection found",
+            "schema": {
+              "$ref": "#/definitions/PacketInjection"
+            }
+          },
+          "404": {
+            "description": "Injection not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete an injection",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Injections"
+        ],
+        "summary": "Delete injection",
+        "operationId": "deletePacketInjection",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Injection deleted"
+          },
+          "404": {
+            "description": "Injection not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify an injection",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Injections"
+        ],
+        "summary": "Modify injection",
+        "operationId": "modifyPacketInjection",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Injection modified"
+          },
+          "404": {
+            "description": "Injection not found"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "security": [],
+        "description": "Login",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Login"
+        ],
+        "summary": "Login",
+        "operationId": "login",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "username",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "password",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authentication successful"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/node": {
+      "get": {
+        "description": "List nodes",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Nodes"
+        ],
+        "summary": "List nodes",
+        "operationId": "listNodes",
+        "responses": {
+          "200": {
+            "description": "Nodes",
+            "schema": {
+              "$ref": "#/definitions/Nodes"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a node",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Nodes"
+        ],
+        "summary": "Create node",
+        "operationId": "createNode",
+        "parameters": [
+          {
+            "name": "node",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Node"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node created",
+            "schema": {
+              "$ref": "#/definitions/Node"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated node"
+          }
+        }
+      }
+    },
+    "/node/{id}": {
+      "get": {
+        "description": "Get a node",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Nodes"
+        ],
+        "summary": "Get node",
+        "operationId": "getNode",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node found",
+            "schema": {
+              "$ref": "#/definitions/Node"
+            }
+          },
+          "404": {
+            "description": "Node not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a node",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Nodes"
+        ],
+        "summary": "Delete node",
+        "operationId": "deleteNode",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node deleted"
+          },
+          "404": {
+            "description": "Node not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify a node",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Nodes"
+        ],
+        "summary": "Modify node",
+        "operationId": "modifyNode",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node modified"
+          },
+          "404": {
+            "description": "Node not found"
+          }
+        }
+      }
+    },
+    "/noderule": {
+      "get": {
+        "description": "List node rules",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Node rules"
+        ],
+        "summary": "List node rules",
+        "operationId": "listNodeRules",
+        "responses": {
+          "200": {
+            "description": "Node rules",
+            "schema": {
+              "$ref": "#/definitions/NodeRules"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a node rule",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Node rules"
+        ],
+        "summary": "Create node rule",
+        "operationId": "createNodeRule",
+        "parameters": [
+          {
+            "name": "node rule",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NodeRule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node rule created",
+            "schema": {
+              "$ref": "#/definitions/NodeRule"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated node rule"
+          }
+        }
+      }
+    },
+    "/noderule/{id}": {
+      "get": {
+        "description": "Get a node rule",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Node rules"
+        ],
+        "summary": "Get node rule",
+        "operationId": "getNodeRule",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node rule found",
+            "schema": {
+              "$ref": "#/definitions/NodeRule"
+            }
+          },
+          "404": {
+            "description": "Node rule not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a node rule",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Node rules"
+        ],
+        "summary": "Delete node rule",
+        "operationId": "deleteNodeRule",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node rule deleted"
+          },
+          "404": {
+            "description": "Node rule not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify a node rule",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Node rules"
+        ],
+        "summary": "Modify node rule",
+        "operationId": "modifyNodeRule",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Node rule modified"
+          },
+          "404": {
+            "description": "Node rule not found"
+          }
+        }
+      }
+    },
+    "/pcap": {
+      "post": {
+        "description": "Inject PCAP",
+        "consumes": [
+          "application/octet-stream"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "PCAP"
+        ],
+        "summary": "Inject PCAP",
+        "operationId": "injectPCAP",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "request accepted"
+          },
+          "400": {
+            "description": "invalid PCAP"
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "description": "Get status",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Status"
+        ],
+        "summary": "Get status",
+        "operationId": "getStatus",
+        "responses": {
+          "200": {
+            "description": "Status"
+          }
+        }
+      }
+    },
+    "/topology": {
+      "get": {
+        "description": "Get topology",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "topology"
+        ],
+        "summary": "Get topology",
+        "operationId": "getTopology",
+        "responses": {
+          "200": {
+            "description": "topology",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Search topology",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "topology"
+        ],
+        "summary": "Search topology",
+        "operationId": "searchTopology",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TopologyParams"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "query result",
+            "schema": {
+              "$ref": "#/definitions/AnyValue"
+            }
+          },
+          "204": {
+            "description": "empty query"
+          }
+        }
+      }
+    },
+    "/workflow": {
+      "get": {
+        "description": "List workflows",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "List workflows",
+        "operationId": "listWorkflows",
+        "responses": {
+          "200": {
+            "description": "Workflows",
+            "schema": {
+              "$ref": "#/definitions/Workflows"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a workflow",
+        "consumes": [
+          "application/json",
+          "application/yaml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Create workflow",
+        "operationId": "createWorkflow",
+        "parameters": [
+          {
+            "name": "workflow",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Workflow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow created",
+            "schema": {
+              "$ref": "#/definitions/Workflow"
+            }
+          },
+          "400": {
+            "description": "create error"
+          },
+          "409": {
+            "description": "duplicated workflow"
+          }
+        }
+      }
+    },
+    "/workflow/{id}": {
+      "get": {
+        "description": "Get a workflow",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Get workflow",
+        "operationId": "getWorkflow",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow found",
+            "schema": {
+              "$ref": "#/definitions/Workflow"
+            }
+          },
+          "404": {
+            "description": "Workflow not found"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a workflow",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Delete workflow",
+        "operationId": "deleteWorkflow",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow deleted"
+          },
+          "404": {
+            "description": "Workflow not found"
+          }
+        }
+      },
+      "patch": {
+        "description": "Modify a workflow",
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Modify workflow",
+        "operationId": "modifyWorkflow",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "JSON Patch following RFC 6902",
+            "name": "JSON Patch",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow modified"
+          },
+          "404": {
+            "description": "Workflow not found"
+          }
+        }
+      }
+    },
+    "/workflow/{id}/call": {
+      "post": {
+        "description": "Call workflow",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http",
+          "https"
+        ],
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Call workflow",
+        "operationId": "callWorkflow",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WorkflowCall"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request accepted",
+            "schema": {
+              "$ref": "#/definitions/AnyValue"
+            }
+          },
+          "400": {
+            "description": "Invalid PCAP"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AgentStatus": {
+      "description": "Status describes the status of an agent",
+      "type": "object",
+      "title": "Status agent object",
+      "properties": {
+        "Analyzers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        },
+        "Clients": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        },
+        "FlowProbes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "TopologyProbes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      },
+      "x-go-name": "Status",
+      "x-go-package": "github.com/skydive-project/skydive/agent"
+    },
+    "Alert": {
+      "description": "Alerts provide a way to be notified when a Gremlin expression\nis evaluated to true.\n\n",
+      "title": "Alert object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "UUID": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Action": {
+              "description": "Action to execute when the alert is triggered.\nCan be either an empty string, or a URL (use 'file://' for local scripts)",
+              "type": "string"
+            },
+            "CreateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "Description": {
+              "description": "Alert description",
+              "type": "string"
+            },
+            "Expression": {
+              "description": "Gremlin or JavaScript expression evaluated to trigger the alarm",
+              "type": "string"
+            },
+            "Name": {
+              "description": "Alert name",
+              "type": "string"
+            },
+            "Trigger": {
+              "description": "Event that triggers the alert evaluation",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "AnalyzerStatus": {
+      "description": "Status describes the status of an analyzer",
+      "type": "object",
+      "title": "Status analyzer object",
+      "properties": {
+        "Agents": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        },
+        "Alerts": {
+          "$ref": "#/definitions/ElectionStatus"
+        },
+        "Captures": {
+          "$ref": "#/definitions/ElectionStatus"
+        },
+        "Peers": {
+          "$ref": "#/definitions/PeersStatus"
+        },
+        "Probes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "Publishers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        },
+        "Subscribers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        }
+      },
+      "x-go-name": "Status",
+      "x-go-package": "github.com/skydive-project/skydive/analyzer"
+    },
+    "AuthenticateOKBody": {
+      "description": "AuthenticateOKBody authenticate o k body",
+      "type": "object",
+      "required": [
+        "IdentityToken",
+        "Status"
+      ],
+      "properties": {
+        "IdentityToken": {
+          "description": "An opaque token used to authenticate a user after a successful login",
+          "type": "string"
+        },
+        "Status": {
+          "description": "The status of the authentication",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/registry"
+    },
+    "BasicResource": {
+      "description": "BasicResource is a resource with a unique identifier\n"
+    },
+    "Capture": {
+      "description": "Captures provide a way to capture network traffic on the nodes\nmatching a Gremlin expression.\n\n",
+      "title": "Capture object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "UUID": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "GremlinQuery"
+          ],
+          "properties": {
+            "BPFFilter": {
+              "description": "BPF filter",
+              "type": "string"
+            },
+            "Description": {
+              "description": "Capture description",
+              "type": "string"
+            },
+            "ExtraLayers": {
+              "description": "List of extra layers to be added to the flow, available: DNS|DHCPv4|VRRP",
+              "type": "integer",
+              "format": "int64"
+            },
+            "ExtraTCPMetric": {
+              "description": "Add additional TCP metrics to flows",
+              "type": "boolean"
+            },
+            "GremlinQuery": {
+              "description": "Gremlin Query",
+              "type": "string"
+            },
+            "HeaderSize": {
+              "description": "Packet header size to consider",
+              "type": "integer",
+              "format": "int64"
+            },
+            "IPDefrag": {
+              "description": "Defragment IPv4 packets",
+              "type": "boolean"
+            },
+            "LayerKeyMode": {
+              "description": "First layer used by flow key calculation, L2 or L3",
+              "type": "string"
+            },
+            "Name": {
+              "description": "Capture name",
+              "type": "string"
+            },
+            "PollingInterval": {
+              "description": "Polling interval for SFlow counters, 0: no counter samples",
+              "type": "integer",
+              "format": "uint32"
+            },
+            "Port": {
+              "description": "SFlow port",
+              "type": "integer",
+              "format": "int64"
+            },
+            "RawPacketLimit": {
+              "description": "Maximum number of raw packets captured, 0: no packet, -1: unlimited",
+              "type": "integer",
+              "format": "int64"
+            },
+            "ReassembleTCP": {
+              "description": "Reassemble TCP packets",
+              "type": "boolean"
+            },
+            "SamplingRate": {
+              "description": "Sampling rate for SFlow flows. 0: no flow samples",
+              "type": "integer",
+              "format": "uint32"
+            },
+            "Target": {
+              "description": "sFlow/NetFlow target, if empty the agent will be used",
+              "type": "string"
+            },
+            "TargetType": {
+              "description": "target type (netflowv5, erspanv1), ignored in case of sFlow/NetFlow capture",
+              "type": "string"
+            },
+            "Type": {
+              "description": "Capture type. Can be afpacket, pcap, ebpf, sflow, pcapsocket, ovsmirror, dpdk, ovssflow or ovsnetflow",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "ConnState": {
+      "description": "ConnState describes the connection state",
+      "$ref": "#/definitions/State"
+    },
+    "ConnStatus": {
+      "description": "ConnStatus represents the status of a connection to a hub",
+      "type": "object",
+      "properties": {
+        "Addr": {
+          "type": "string"
+        },
+        "ClientProtocol": {
+          "$ref": "#/definitions/Protocol"
+        },
+        "ConnectTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "IsConnected": {
+          "$ref": "#/definitions/ConnState"
+        },
+        "IsMaster": {
+          "type": "boolean"
+        },
+        "Port": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "RemoteHost": {
+          "type": "string"
+        },
+        "RemoteServiceType": {
+          "$ref": "#/definitions/Type"
+        },
+        "ServiceType": {
+          "$ref": "#/definitions/Type"
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/pod"
+    },
+    "ContainerCreateCreatedBody": {
+      "description": "ContainerCreateCreatedBody container create created body",
+      "type": "object",
+      "required": [
+        "Id",
+        "Warnings"
+      ],
+      "properties": {
+        "Id": {
+          "description": "The ID of the created container",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Warnings": {
+          "description": "Warnings encountered when creating the container",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "ContainerUpdateOKBody": {
+      "description": "ContainerUpdateOKBody container update o k body",
+      "type": "object",
+      "required": [
+        "Warnings"
+      ],
+      "properties": {
+        "Warnings": {
+          "description": "warnings",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "ContainerWaitOKBody": {
+      "description": "ContainerWaitOKBody container wait o k body",
+      "type": "object",
+      "required": [
+        "StatusCode"
+      ],
+      "properties": {
+        "StatusCode": {
+          "description": "Exit code of the container",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "Edge": {
+      "description": "Edge object\n",
+      "$ref": "#/definitions/Edge"
+    },
+    "EdgeRule": {
+      "description": "Edge rules allow the dynamic creation of links between nodes of the graph.\n\n",
+      "title": "EdgeRule object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "UUID": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "description": "Edge rule description",
+              "type": "string"
+            },
+            "Dst": {
+              "description": "Gremlin expression of the edges destination nodes",
+              "type": "string"
+            },
+            "Metadata": {
+              "$ref": "#/definitions/Metadata"
+            },
+            "Name": {
+              "description": "Edge rule name",
+              "type": "string"
+            },
+            "Src": {
+              "description": "Gremlin expression of the edges source nodes",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "ElectionStatus": {
+      "description": "",
+      "type": "object",
+      "title": "ElectionStatus describes the status of an election",
+      "properties": {
+        "IsMaster": {
+          "type": "boolean"
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/analyzer"
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "title": "ErrorResponse Represents an error.",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "x-go-name": "Message"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "IdResponse": {
+      "description": "IDResponse Response to an API call that returns just an Id",
+      "type": "object",
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "description": "The id of the newly created object.",
+          "type": "string",
+          "x-go-name": "ID"
+        }
+      },
+      "x-go-name": "IDResponse",
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "Identifier": {
+      "description": "Identifier graph ID",
+      "type": "string",
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/graph"
+    },
+    "ImageSummary": {
+      "description": "ImageSummary image summary",
+      "type": "object",
+      "required": [
+        "Containers",
+        "Created",
+        "Id",
+        "Labels",
+        "ParentId",
+        "RepoDigests",
+        "RepoTags",
+        "SharedSize",
+        "Size",
+        "VirtualSize"
+      ],
+      "properties": {
+        "Containers": {
+          "description": "containers",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Created": {
+          "description": "created",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Id": {
+          "description": "Id",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Labels": {
+          "description": "labels",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ParentId": {
+          "description": "parent Id",
+          "type": "string",
+          "x-go-name": "ParentID"
+        },
+        "RepoDigests": {
+          "description": "repo digests",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RepoTags": {
+          "description": "repo tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SharedSize": {
+          "description": "shared size",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Size": {
+          "description": "size",
+          "type": "integer",
+          "format": "int64"
+        },
+        "VirtualSize": {
+          "description": "virtual size",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "Info": {
+      "description": "Info for each host describes his API version and service",
+      "type": "object",
+      "properties": {
+        "Host": {
+          "description": "Server host ID",
+          "type": "string"
+        },
+        "Service": {
+          "description": "Service type",
+          "type": "string"
+        },
+        "Version": {
+          "description": "API version",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/api/server"
+    },
+    "Metadata": {
+      "description": "Metadata describes the graph node metadata type. It implements ElementMatcher\nbased only on Metadata.\n",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      },
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/graph"
+    },
+    "Node": {
+      "description": "Node object",
+      "type": "object",
+      "properties": {
+        "CreatedAt": {
+          "$ref": "#/definitions/Time"
+        },
+        "DeletedAt": {
+          "$ref": "#/definitions/Time"
+        },
+        "Host": {
+          "type": "string"
+        },
+        "ID": {
+          "$ref": "#/definitions/Identifier"
+        },
+        "Metadata": {
+          "$ref": "#/definitions/Metadata"
+        },
+        "Origin": {
+          "type": "string"
+        },
+        "Revision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UpdatedAt": {
+          "$ref": "#/definitions/Time"
+        }
+      },
+      "$ref": "#/definitions/Node"
+    },
+    "NodeRule": {
+      "description": "Node rules allow the dynamic creation of nodes in the graph.\n\n",
+      "title": "NodeRule object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "UUID": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Action": {
+              "description": "'create' to create nodes, 'update' to updates nodes",
+              "type": "string"
+            },
+            "Description": {
+              "description": "Node rule description",
+              "type": "string"
+            },
+            "Metadata": {
+              "$ref": "#/definitions/Metadata"
+            },
+            "Name": {
+              "description": "Node rule name",
+              "type": "string"
+            },
+            "Query": {
+              "description": "Gremlin expression of the nodes to update",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "PacketInjection": {
+      "description": "PacketInjection packet injector API parameters\n",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "UUID": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Count": {
+              "type": "integer",
+              "format": "uint64"
+            },
+            "Dst": {
+              "type": "string"
+            },
+            "DstIP": {
+              "type": "string"
+            },
+            "DstMAC": {
+              "type": "string"
+            },
+            "DstPort": {
+              "type": "integer",
+              "format": "uint16"
+            },
+            "ICMPID": {
+              "type": "integer",
+              "format": "uint16"
+            },
+            "IncrementPayload": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Interval": {
+              "type": "integer",
+              "format": "uint64"
+            },
+            "Mode": {
+              "type": "string"
+            },
+            "Payload": {
+              "type": "string"
+            },
+            "Pcap": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "uint8"
+              }
+            },
+            "Src": {
+              "type": "string"
+            },
+            "SrcIP": {
+              "type": "string"
+            },
+            "SrcMAC": {
+              "type": "string"
+            },
+            "SrcPort": {
+              "type": "integer",
+              "format": "uint16"
+            },
+            "StartTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "TTL": {
+              "type": "integer",
+              "format": "uint8"
+            },
+            "Type": {
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "PeersStatus": {
+      "description": "PeersStatus describes the state of a peer",
+      "type": "object",
+      "properties": {
+        "Incomers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        },
+        "Outgoers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ConnStatus"
+          }
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/hub"
+    },
+    "Plugin": {
+      "description": "Plugin A plugin for the Engine API",
+      "type": "object",
+      "required": [
+        "Config",
+        "Enabled",
+        "Name",
+        "Settings"
+      ],
+      "properties": {
+        "Config": {
+          "$ref": "#/definitions/PluginConfig"
+        },
+        "Enabled": {
+          "description": "True when the plugin is running. False when the plugin is not running, only installed.",
+          "type": "boolean"
+        },
+        "Id": {
+          "description": "Id",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "PluginReference": {
+          "description": "plugin remote reference used to push/pull the plugin",
+          "type": "string"
+        },
+        "Settings": {
+          "$ref": "#/definitions/PluginSettings"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfig": {
+      "type": "object",
+      "title": "PluginConfig The config of a plugin.",
+      "required": [
+        "Args",
+        "Description",
+        "Documentation",
+        "Entrypoint",
+        "Env",
+        "Interface",
+        "Linux",
+        "Mounts",
+        "Network",
+        "PropagatedMount",
+        "WorkDir"
+      ],
+      "properties": {
+        "Args": {
+          "$ref": "#/definitions/PluginConfigArgs"
+        },
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Documentation": {
+          "description": "documentation",
+          "type": "string"
+        },
+        "Entrypoint": {
+          "description": "entrypoint",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Env": {
+          "description": "env",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginEnv"
+          }
+        },
+        "Interface": {
+          "$ref": "#/definitions/PluginConfigInterface"
+        },
+        "Linux": {
+          "$ref": "#/definitions/PluginConfigLinux"
+        },
+        "Mounts": {
+          "description": "mounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginMount"
+          }
+        },
+        "Network": {
+          "$ref": "#/definitions/PluginConfigNetwork"
+        },
+        "PropagatedMount": {
+          "description": "propagated mount",
+          "type": "string"
+        },
+        "User": {
+          "$ref": "#/definitions/PluginConfigUser"
+        },
+        "WorkDir": {
+          "description": "work dir",
+          "type": "string"
+        },
+        "rootfs": {
+          "$ref": "#/definitions/PluginConfigRootfs"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigArgs": {
+      "description": "PluginConfigArgs plugin config args",
+      "type": "object",
+      "required": [
+        "Description",
+        "Name",
+        "Settable",
+        "Value"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Value": {
+          "description": "value",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigInterface": {
+      "description": "PluginConfigInterface The interface between Docker and the plugin",
+      "type": "object",
+      "required": [
+        "Socket",
+        "Types"
+      ],
+      "properties": {
+        "Socket": {
+          "description": "socket",
+          "type": "string"
+        },
+        "Types": {
+          "description": "types",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginInterfaceType"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigLinux": {
+      "description": "PluginConfigLinux plugin config linux",
+      "type": "object",
+      "required": [
+        "AllowAllDevices",
+        "Capabilities",
+        "Devices"
+      ],
+      "properties": {
+        "AllowAllDevices": {
+          "description": "allow all devices",
+          "type": "boolean"
+        },
+        "Capabilities": {
+          "description": "capabilities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Devices": {
+          "description": "devices",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginDevice"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigNetwork": {
+      "description": "PluginConfigNetwork plugin config network",
+      "type": "object",
+      "required": [
+        "Type"
+      ],
+      "properties": {
+        "Type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigRootfs": {
+      "description": "PluginConfigRootfs plugin config rootfs",
+      "type": "object",
+      "properties": {
+        "diff_ids": {
+          "description": "diff ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "DiffIds"
+        },
+        "type": {
+          "description": "type",
+          "type": "string",
+          "x-go-name": "Type"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigUser": {
+      "description": "PluginConfigUser plugin config user",
+      "type": "object",
+      "properties": {
+        "GID": {
+          "description": "g ID",
+          "type": "integer",
+          "format": "uint32"
+        },
+        "UID": {
+          "description": "UID",
+          "type": "integer",
+          "format": "uint32"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginDevice": {
+      "description": "PluginDevice plugin device",
+      "type": "object",
+      "required": [
+        "Description",
+        "Name",
+        "Path",
+        "Settable"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Path": {
+          "description": "path",
+          "type": "string"
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginEnv": {
+      "description": "PluginEnv plugin env",
+      "type": "object",
+      "required": [
+        "Description",
+        "Name",
+        "Settable",
+        "Value"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Value": {
+          "description": "value",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginInterfaceType": {
+      "description": "PluginInterfaceType plugin interface type",
+      "type": "object",
+      "required": [
+        "Capability",
+        "Prefix",
+        "Version"
+      ],
+      "properties": {
+        "Capability": {
+          "description": "capability",
+          "type": "string"
+        },
+        "Prefix": {
+          "description": "prefix",
+          "type": "string"
+        },
+        "Version": {
+          "description": "version",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginMount": {
+      "description": "PluginMount plugin mount",
+      "type": "object",
+      "required": [
+        "Description",
+        "Destination",
+        "Name",
+        "Options",
+        "Settable",
+        "Source",
+        "Type"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Destination": {
+          "description": "destination",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Options": {
+          "description": "options",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Source": {
+          "description": "source",
+          "type": "string"
+        },
+        "Type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginSettings": {
+      "type": "object",
+      "title": "PluginSettings Settings that can be modified by users.",
+      "required": [
+        "Args",
+        "Devices",
+        "Env",
+        "Mounts"
+      ],
+      "properties": {
+        "Args": {
+          "description": "args",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Devices": {
+          "description": "devices",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginDevice"
+          }
+        },
+        "Env": {
+          "description": "env",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Mounts": {
+          "description": "mounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginMount"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "Port": {
+      "description": "Port An open port on a container",
+      "type": "object",
+      "required": [
+        "PrivatePort",
+        "Type"
+      ],
+      "properties": {
+        "IP": {
+          "description": "IP",
+          "type": "string"
+        },
+        "PrivatePort": {
+          "description": "Port on the container",
+          "type": "integer",
+          "format": "uint16"
+        },
+        "PublicPort": {
+          "description": "Port exposed on the host",
+          "type": "integer",
+          "format": "uint16"
+        },
+        "Type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "Protocol": {
+      "description": "Protocol used to transport messages",
+      "type": "string",
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/websocket"
+    },
+    "ServiceUpdateResponse": {
+      "description": "ServiceUpdateResponse service update response",
+      "type": "object",
+      "properties": {
+        "Warnings": {
+          "description": "Optional warning messages",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "State": {
+      "type": "integer",
+      "format": "int64",
+      "title": "State describes the state of a service.",
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/service"
+    },
+    "Time": {
+      "description": "Time describes time type used in the graph",
+      "type": "string",
+      "format": "date-time",
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/graph"
+    },
+    "TopologyParams": {
+      "description": "TopologyParams topology query parameters\n",
+      "type": "object",
+      "properties": {
+        "GremlinQuery": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/api/types"
+    },
+    "Type": {
+      "description": "Type describes the service type",
+      "type": "string",
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/service"
+    },
+    "Volume": {
+      "description": "Volume volume",
+      "type": "object",
+      "required": [
+        "Driver",
+        "Labels",
+        "Mountpoint",
+        "Name",
+        "Options",
+        "Scope"
+      ],
+      "properties": {
+        "Driver": {
+          "description": "Name of the volume driver used by the volume.",
+          "type": "string"
+        },
+        "Labels": {
+          "description": "User-defined key/value metadata.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Mountpoint": {
+          "description": "Mount path of the volume on the host.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "Name of the volume.",
+          "type": "string"
+        },
+        "Options": {
+          "description": "The driver specific options used when creating the volume.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Scope": {
+          "description": "The level at which the volume exists. Either `global` for cluster-wide, or `local` for machine level.",
+          "type": "string"
+        },
+        "Status": {
+          "description": "Low-level details about the volume, provided by the volume driver.\nDetails are returned as a map with key/value pairs:\n`{\"key\":\"value\",\"key2\":\"value2\"}`.\n\nThe `Status` field is optional, and is omitted if the volume driver\ndoes not support this feature.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "UsageData": {
+          "$ref": "#/definitions/VolumeUsageData"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "VolumeUsageData": {
+      "description": "VolumeUsageData volume usage data",
+      "type": "object",
+      "required": [
+        "RefCount",
+        "Size"
+      ],
+      "properties": {
+        "RefCount": {
+          "description": "The number of containers referencing this volume.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Size": {
+          "description": "The disk space used by the volume (local driver only)",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "VolumesCreateBody": {
+      "description": "VolumesCreateBody volumes create body",
+      "type": "object",
+      "required": [
+        "Driver",
+        "DriverOpts",
+        "Labels",
+        "Name"
+      ],
+      "properties": {
+        "Driver": {
+          "description": "Name of the volume driver to use.",
+          "type": "string"
+        },
+        "DriverOpts": {
+          "description": "A mapping of driver options and values. These options are passed directly to the driver and are driver specific.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Labels": {
+          "description": "User-defined key/value metadata.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Name": {
+          "description": "The new volume's name. If not specified, Docker generates a name.",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "VolumesListOKBody": {
+      "description": "VolumesListOKBody volumes list o k body",
+      "type": "object",
+      "required": [
+        "Volumes",
+        "Warnings"
+      ],
+      "properties": {
+        "Volumes": {
+          "description": "List of volumes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Volume"
+          }
+        },
+        "Warnings": {
+          "description": "Warnings that occurred when fetching the list of volumes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "Workflow": {
+      "description": "Workflow allows to automate actions using JavaScript.\n\n",
+      "title": "Workflow object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "UUID": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Abstract": {
+              "description": "Workflow abstract",
+              "type": "string"
+            },
+            "Description": {
+              "description": "Workflow description",
+              "type": "string"
+            },
+            "Name": {
+              "description": "Workflow name",
+              "type": "string"
+            },
+            "Parameters": {
+              "description": "Workflow parameters",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkflowParam"
+              }
+            },
+            "Source": {
+              "type": "string"
+            },
+            "Title": {
+              "description": "Workflow title",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "WorkflowCall": {
+      "description": "WorkflowCall describes workflow call",
+      "type": "object",
+      "properties": {
+        "Params": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "WorkflowChoice": {
+      "description": "WorkflowChoice describes one value within a choice\n",
+      "type": "object",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "WorkflowParam": {
+      "description": "WorkflowParam describes a workflow parameter\n",
+      "type": "object",
+      "properties": {
+        "Default": {
+          "type": "object"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkflowChoice"
+          }
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/api/types"
+    },
+    "graphElement": {
+      "type": "object",
+      "properties": {
+        "CreatedAt": {
+          "$ref": "#/definitions/Time"
+        },
+        "DeletedAt": {
+          "$ref": "#/definitions/Time"
+        },
+        "Host": {
+          "type": "string"
+        },
+        "ID": {
+          "$ref": "#/definitions/Identifier"
+        },
+        "Metadata": {
+          "$ref": "#/definitions/Metadata"
+        },
+        "Origin": {
+          "type": "string"
+        },
+        "Revision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UpdatedAt": {
+          "$ref": "#/definitions/Time"
+        }
+      },
+      "x-go-package": "github.com/skydive-project/skydive/graffiti/graph"
+    },
+    "AnyValue": {},
+    "Alerts": {
+      "description": "Alerts",
+      "type": "object",
+      "title": "Map of alerts",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/Alert"
+      }
+    },
+    "Captures": {
+      "description": "Captures",
+      "type": "object",
+      "title": "Map of captures",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/Capture"
+      }
+    },
+    "EdgeRules": {
+      "description": "Edge rules",
+      "type": "object",
+      "title": "Map of edge rules",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/EdgeRule"
+      }
+    },
+    "NodeRules": {
+      "description": "Node rules",
+      "type": "object",
+      "title": "Map of node rules",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/NodeRule"
+      }
+    },
+    "PacketInjections": {
+      "description": "Injections",
+      "type": "object",
+      "title": "Map of injections",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/PacketInjection"
+      }
+    },
+    "Workflows": {
+      "description": "Workflows",
+      "type": "object",
+      "title": "Map of workflows",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/Workflow"
+      }
+    },
+    "Edges": {
+      "description": "Edges",
+      "type": "object",
+      "title": "Map of edges",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/Edge"
+      }
+    },
+    "Nodes": {
+      "description": "Nodes",
+      "type": "object",
+      "title": "Map of nodes",
+      "x-additionalPropertiesName": "UUID",
+      "additionalProperties": {
+        "$ref": "#/definitions/Node"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Alerts",
+      "description": "Alert"
+    },
+    {
+      "name": "Captures",
+      "description": "Capture"
+    },
+    {
+      "name": "Edge rules",
+      "description": "Edge rule"
+    },
+    {
+      "name": "Node rules",
+      "description": "Node rule"
+    },
+    {
+      "name": "Injections",
+      "description": "Injection"
+    },
+    {
+      "name": "Workflows",
+      "description": "Workflow"
+    },
+    {
+      "name": "Edges",
+      "description": "Edge"
+    },
+    {
+      "name": "Nodes",
+      "description": "Node"
+    }
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    },
+    "authToken": {
+      "type": "apiKey",
+      "name": "X-Auth-Token",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    },
+    {
+      "authToken": []
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Misc",
+      "tags": [
+        "Login",
+        "API Info",
+        "Config",
+        "Status"
+      ]
+    },
+    {
+      "name": "Topology Management",
+      "tags": [
+        "Topology",
+        "Node rules",
+        "Edge rules"
+      ]
+    },
+    {
+      "name": "Flow Management",
+      "tags": [
+        "Captures",
+        "Injections",
+        "PCAP"
+      ]
+    },
+    {
+      "name": "Automation",
+      "tags": [
+        "Alerts",
+        "Workflows"
+      ]
+    }
+  ]
+}
